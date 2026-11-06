@@ -2,6 +2,11 @@ import { http, fallback, type Transport } from "viem";
 
 // Keyless public RPC lists per chain.
 const DEFAULT_RPC_URLS: Record<number, string[]> = {
+  1: [
+    "https://cloudflare-eth.com",
+    "https://eth.llamarpc.com",
+    "https://ethereum-rpc.publicnode.com",
+  ],
   11155111: [
     "https://ethereum-sepolia-rpc.publicnode.com",
     "https://sepolia.gateway.tenderly.co",
@@ -37,6 +42,7 @@ export const getScanTransport = (chainId: number): Transport => {
 // Every provider in a chain's list must accept the chunk, so use the smallest limit.
 // Measured: tenderly 1M (2026-07-29), publicnode 50k (2026-09-28).
 const SCAN_CHUNK_SIZE: Record<number, bigint> = {
+  1: BigInt(2_000),
   11155111: BigInt(10_000),
 };
 
